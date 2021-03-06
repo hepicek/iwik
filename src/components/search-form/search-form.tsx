@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {getSearchUrl} from '../../utils/set-search-params'
 import {SearchResult} from '../search-results'
 import {Button} from '../buttons'
+import dayjs from 'dayjs'
 
 const FormLayout = styled(Form)`
 	display: flex;
@@ -45,16 +46,19 @@ export default function SearchForm({setSearchResults}: Props) {
 				from: '',
 			}}
 			onSubmit={async (values) => {
+				const departureDate = dayjs(values.dateFrom).format('DD/MM/YYYY')
+				const returnDate = dayjs(values.returnFrom).format('DD/MM/YYYY')
+
 				const searchParams = {
 					v: 3,
 					partner: 'skypicker',
 					locale: 'en',
 					flyFrom: values.flyFrom,
 					to: values.to,
-					dateFrom: '18/03/2021',
-					dateTo: '18/03/2021',
-					returnFrom: '24/03/2021',
-					returnTo: '24/03/2021',
+					dateFrom: departureDate,
+					dateTo: departureDate,
+					returnFrom: returnDate,
+					returnTo: returnDate,
 					limit: 10,
 				}
 				const url = getSearchUrl('/flights', searchParams)

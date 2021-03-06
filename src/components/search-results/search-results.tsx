@@ -1,6 +1,7 @@
 import {SearchResult} from './types'
 import styled from 'styled-components'
 import {DarkButton} from '../buttons'
+import dayjs from 'dayjs'
 
 const ResultsWrapper = styled.div`
 	min-width: 320px;
@@ -49,21 +50,22 @@ export default function SearchResults({searchResults}: Props) {
 					price,
 					aTime,
 					dTime,
-					nightsInDest,
-					duration: {departure, return: returnTime, total},
+					fly_duration,
+					flyFrom,
+					flyTo,
 				} = item
 				return (
 					<Card key={id}>
 						<div>
-							<div>
-								<p>{}</p>
-								<p>{cityFrom}</p>
-								<p>{cityTo}</p>
-							</div>
-							<div>
-								<p>{cityTo}</p>
-								<p>{cityFrom}</p>
-							</div>
+							<p>{dayjs.unix(dTime).format('ddd. DD')}</p>
+							<p>
+								{dayjs.unix(dTime).format('HH:mm')} {cityFrom} {flyFrom}
+							</p>
+							<p>{fly_duration}</p>
+							<p>
+								{dayjs.unix(aTime).format('HH:mm')} {cityTo} {flyTo}
+							</p>
+							<p>{dayjs.unix(aTime).format('ddd. DD')}</p>
 						</div>
 						<PriceBox>
 							<Price>{price} €</Price>

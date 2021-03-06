@@ -5,10 +5,7 @@ export type SearchResult = {
 	price: string
 	aTime: number
 	dTime: number
-	nightsInDest: number
-	duration: {
-		departure: number
-		return: number
-		total: number
-	}
+	fly_duration: string
+	flyFrom: string
+	flyTo: string
 }

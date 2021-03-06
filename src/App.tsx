@@ -34,6 +34,8 @@ const SearchBox = styled.div`
 	background: rgba(16 18 27 / 40%);
 	border-radius: 14px;
 	padding: 24px;
+	position: relative;
+	z-index: 10;
 `
 
 function App() {
