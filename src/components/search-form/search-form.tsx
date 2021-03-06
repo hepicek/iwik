@@ -1,29 +1,15 @@
 import {Formik, Form, Field} from 'formik'
 import DebounceField from './debounce-field'
 import styled from 'styled-components'
+import {getSearchUrl} from '../../utils/set-search-params'
+import {SearchResult} from '../search-results'
+import {Button} from '../buttons'
 
 const FormLayout = styled(Form)`
 	display: flex;
 	justify-content: space-around;
 `
 
-const Button = styled.button`
-	background-color: #fefffe;
-	border: none;
-	padding: 8px 26px;
-	color: #000000;
-	border-radius: 20px;
-	cursor: pointer;
-	transition: 0.3s;
-	white-space: nowrap;
-	outline: none;
-	opacity: 0.85;
-	text-decoration: none;
-	&:disabled {
-		opacity: 0.25;
-		cursor: unset;
-	}
-`
 const Input = styled(Field)`
 	border: none;
 	background-color: ${({theme}) => theme.dark};
@@ -42,19 +28,39 @@ const Input = styled(Field)`
 		filter: invert(1);
 	}
 `
-export default function SearchForm() {
+
+type Props = {
+	setSearchResults: (results: SearchResult[]) => void
+}
+
+export default function SearchForm({setSearchResults}: Props) {
 	return (
 		<Formik
 			initialValues={{
 				flyFrom: '',
 				to: '',
 				dateFrom: '',
-				dateTo: '',
+				returnFrom: '',
 				flyTo: '',
 				from: '',
 			}}
 			onSubmit={async (values) => {
-				alert(JSON.stringify(values, null, 2))
+				const searchParams = {
+					v: 3,
+					partner: 'skypicker',
+					locale: 'en',
+					flyFrom: values.flyFrom,
+					to: values.to,
+					dateFrom: '18/03/2021',
+					dateTo: '18/03/2021',
+					returnFrom: '24/03/2021',
+					returnTo: '24/03/2021',
+					limit: 10,
+				}
+				const url = getSearchUrl('/flights', searchParams)
+				const res = await fetch(url.toString())
+				const {data} = await res.json()
+				setSearchResults(data)
 			}}
 		>
 			{({isSubmitting}) => (
@@ -73,7 +79,7 @@ export default function SearchForm() {
 					/>
 
 					<Input name='dateFrom' type='date' />
-					<Input name='dateTo' type='date' />
+					<Input name='returnFrom' type='date' />
 
 					<Button type='submit' disabled={isSubmitting}>
 						Submit

@@ -1,6 +1,8 @@
 import Navigation from './components/navigation'
 import SearchForm from './components/search-form'
 import styled from 'styled-components'
+import {useState} from 'react'
+import SearchResults, {SearchResult} from './components/search-results'
 
 export const Container = styled.div`
 	width: 100%;
@@ -35,13 +37,15 @@ const SearchBox = styled.div`
 `
 
 function App() {
+	const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 	return (
 		<div className=''>
 			<Navigation />
 			<Container>
 				<SearchBox>
-					<SearchForm />
+					<SearchForm setSearchResults={setSearchResults} />
 				</SearchBox>
+				<SearchResults searchResults={searchResults} />
 			</Container>
 		</div>
 	)
