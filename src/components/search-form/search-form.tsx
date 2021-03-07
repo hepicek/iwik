@@ -73,6 +73,10 @@ export default function SearchForm({getSearchResults}: Props) {
 						type='date'
 						error={touched.dateFrom && !!errors.dateFrom ? true : undefined}
 					/>
+					<Input name='sort' as='select'>
+						<option value='date'>Date</option>
+						<option value='price'>Price</option>
+					</Input>
 					<Button type='submit' disabled={isSubmitting}>
 						Submit
 					</Button>

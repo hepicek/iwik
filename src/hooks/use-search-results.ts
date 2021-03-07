@@ -9,6 +9,7 @@ export type FormValues = {
 	dateFrom: string
 	flyTo: string
 	from: string
+	sort?: string
 }
 
 export type GetSearchResults = (values: FormValues) => Promise<void>
@@ -38,6 +39,7 @@ export function useSearchResults(limit = 5): UseSearchResults {
 				dateFrom: departureDate,
 				dateTo,
 				limit,
+				sort: values.sort || 'date',
 			}
 			const url = getSearchUrl('/flights', searchParams)
 
