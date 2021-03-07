@@ -5,6 +5,7 @@ import SearchResults from './components/search-results'
 import {useSearchResults} from './hooks/use-search-results'
 import If from './components/if'
 import {ReactComponent as Spinner} from './components/icons/spinner.svg'
+import PopularPlaces from './components/popular-places'
 
 export const Container = styled.div`
 	width: 100%;
@@ -39,6 +40,12 @@ const SearchBox = styled.div`
 	position: relative;
 	z-index: 10;
 `
+const Title = styled.h1`
+	font-size: 48px;
+	padding-top: 48px;
+	padding-bottom: 48px;
+	text-align: center;
+`
 
 function App() {
 	const [searchResults, status, getSearchResults] = useSearchResults()
@@ -55,6 +62,10 @@ function App() {
 				<If condition={status === 'error'}>Ups, something went wrong.</If>
 				<If condition={status === 'success'}>
 					<SearchResults searchResults={searchResults} />
+				</If>
+				<If condition={!status}>
+					<Title>Start your travel today</Title>
+					<PopularPlaces getSearchResults={getSearchResults} />
 				</If>
 			</Container>
 		</div>

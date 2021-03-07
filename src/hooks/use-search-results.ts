@@ -28,7 +28,7 @@ export function useSearchResults(limit = 5): UseSearchResults {
 	const getSearchResults = useCallback(
 		async (values) => {
 			const departureDate = dayjs(values.dateFrom).format('DD/MM/YYYY')
-
+			const dateTo = dayjs(values.dateFrom).add(7, 'day').format('DD/MM/YYYY')
 			const searchParams = {
 				v: 3,
 				partner: 'skypicker',
@@ -36,10 +36,11 @@ export function useSearchResults(limit = 5): UseSearchResults {
 				flyFrom: values.flyFrom,
 				to: values.to,
 				dateFrom: departureDate,
-				dateTo: departureDate,
+				dateTo,
 				limit,
 			}
 			const url = getSearchUrl('/flights', searchParams)
+
 			seStatus('loading')
 			try {
 				const res = await fetch(url.toString())

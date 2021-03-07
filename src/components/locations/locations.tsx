@@ -24,7 +24,7 @@ type Props = {
 }
 
 export default function Locations({locations, selectLocation}: Props) {
-	if (locations.length !== 0) {
+	if (locations.length === 0) {
 		return null
 	}
 	return (
