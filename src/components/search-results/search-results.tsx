@@ -13,7 +13,6 @@ type Props = {
 }
 
 export default function SearchResults({searchResults}: Props) {
-	console.log(searchResults)
 	return (
 		<ResultsWrapper>
 			{searchResults.map((travelInfo) => {

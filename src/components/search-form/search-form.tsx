@@ -1,5 +1,5 @@
 import {Formik, Form, Field} from 'formik'
-import DebounceField from './debounce-field'
+import DebounceField from './location-field'
 import styled, {css} from 'styled-components'
 import {Button} from '../buttons'
 import {GetSearchResults} from '../../hooks/use-search-results'
@@ -27,7 +27,7 @@ const Input = styled(Field)`
 	::-webkit-calendar-picker-indicator {
 		filter: invert(1);
 	}
-	${({error}: {error: boolean}) =>
+	${({error}: {error?: boolean}) =>
 		error &&
 		css`
 			border: 1px solid ${({theme}) => theme.red};
@@ -71,7 +71,7 @@ export default function SearchForm({getSearchResults}: Props) {
 					<Input
 						name='dateFrom'
 						type='date'
-						error={touched.dateFrom && !!errors.dateFrom && true}
+						error={touched.dateFrom && !!errors.dateFrom ? true : undefined}
 					/>
 					<Button type='submit' disabled={isSubmitting}>
 						Submit

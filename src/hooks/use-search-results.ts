@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import {getSearchUrl} from '../utils/set-search-params'
+import {getSearchUrl} from '../utils/get-url-with-search-params'
 import {useCallback, useState} from 'react'
 import {SearchResult} from '../components/search-results'
 
@@ -46,7 +46,7 @@ export function useSearchResults(limit = 5): UseSearchResults {
 				const body = await res.json()
 
 				if (!res.ok) {
-					throw new Error('Failed to fetch')
+					throw new Error('Failed to fetch: Flights')
 				}
 
 				seStatus('success')
