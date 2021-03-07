@@ -1,10 +1,8 @@
 import {Formik, Form, Field} from 'formik'
 import DebounceField from './debounce-field'
 import styled from 'styled-components'
-import {getSearchUrl} from '../../utils/set-search-params'
-import {SearchResult} from '../search-results'
 import {Button} from '../buttons'
-import dayjs from 'dayjs'
+import {GetSearchResults} from '../../hooks/use-search-results'
 
 const FormLayout = styled(Form)`
 	display: flex;
@@ -30,43 +28,21 @@ const Input = styled(Field)`
 	}
 `
 
-type Props = {
-	setSearchResults: (results: SearchResult[]) => void
+const initialValues = {
+	flyFrom: '',
+	to: '',
+	from: '',
+	flyTo: '',
+	dateFrom: '',
 }
 
-export default function SearchForm({setSearchResults}: Props) {
-	return (
-		<Formik
-			initialValues={{
-				flyFrom: '',
-				to: '',
-				dateFrom: '',
-				returnFrom: '',
-				flyTo: '',
-				from: '',
-			}}
-			onSubmit={async (values) => {
-				const departureDate = dayjs(values.dateFrom).format('DD/MM/YYYY')
-				const returnDate = dayjs(values.returnFrom).format('DD/MM/YYYY')
+type Props = {
+	getSearchResults: GetSearchResults
+}
 
-				const searchParams = {
-					v: 3,
-					partner: 'skypicker',
-					locale: 'en',
-					flyFrom: values.flyFrom,
-					to: values.to,
-					dateFrom: departureDate,
-					dateTo: departureDate,
-					returnFrom: returnDate,
-					returnTo: returnDate,
-					limit: 10,
-				}
-				const url = getSearchUrl('/flights', searchParams)
-				const res = await fetch(url.toString())
-				const {data} = await res.json()
-				setSearchResults(data)
-			}}
-		>
+export default function SearchForm({getSearchResults}: Props) {
+	return (
+		<Formik initialValues={initialValues} onSubmit={getSearchResults}>
 			{({isSubmitting}) => (
 				<FormLayout>
 					<DebounceField
@@ -81,10 +57,7 @@ export default function SearchForm({setSearchResults}: Props) {
 						fieldName='to'
 						placeholder='To'
 					/>
-
 					<Input name='dateFrom' type='date' />
-					<Input name='returnFrom' type='date' />
-
 					<Button type='submit' disabled={isSubmitting}>
 						Submit
 					</Button>

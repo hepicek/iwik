@@ -1,8 +1,10 @@
 import Navigation from './components/navigation'
 import SearchForm from './components/search-form'
 import styled from 'styled-components'
-import {useState} from 'react'
-import SearchResults, {SearchResult} from './components/search-results'
+import SearchResults from './components/search-results'
+import {useSearchResults} from './hooks/use-search-results'
+import If from './components/if'
+import {ReactComponent as Spinner} from './components/icons/spinner.svg'
 
 export const Container = styled.div`
 	width: 100%;
@@ -39,15 +41,21 @@ const SearchBox = styled.div`
 `
 
 function App() {
-	const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+	const [searchResults, status, getSearchResults] = useSearchResults()
 	return (
 		<div className=''>
 			<Navigation />
 			<Container>
 				<SearchBox>
-					<SearchForm setSearchResults={setSearchResults} />
+					<SearchForm getSearchResults={getSearchResults} />
 				</SearchBox>
-				<SearchResults searchResults={searchResults} />
+				<If condition={status === 'loading'}>
+					<Spinner />
+				</If>
+				<If condition={status === 'error'}>Ups, something went wrong.</If>
+				<If condition={status === 'success'}>
+					<SearchResults searchResults={searchResults} />
+				</If>
 			</Container>
 		</div>
 	)
