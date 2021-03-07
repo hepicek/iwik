@@ -151,7 +151,7 @@ export default React.memo(function DebounceField(props: Props) {
 						const {id, city} = location
 						return (
 							<FilterItem key={id} onClick={() => selectLocation(city)}>
-								{city.name}
+								{city.name} - {id}
 							</FilterItem>
 						)
 					})}
