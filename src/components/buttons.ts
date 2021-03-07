@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
 export const Button = styled.button`
 	background-color: ${({theme}) => theme.white};
@@ -21,4 +21,10 @@ export const Button = styled.button`
 export const DarkButton = styled(Button)`
 	background-color: ${({theme}) => theme.dark};
 	color: ${({theme}) => theme.white};
+	${({large}: {large?: boolean}) =>
+		large &&
+		css`
+			font-size: 24px;
+			padding: 8px 32px;
+		`}
 `
