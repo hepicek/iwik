@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import dayjs from 'dayjs'
-import {GetSearchResults} from '../../hooks/use-search-results'
+import {GetSearchResults} from '../search-form/use-search-results'
 import {Button} from '../buttons'
 
 const Grid = styled.div`

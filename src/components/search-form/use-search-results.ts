@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import {getSearchUrl} from '../utils/get-url-with-search-params'
+import {getSearchUrl} from '../../utils/get-url-with-search-params'
 import {useCallback, useState} from 'react'
-import {SearchResult} from '../components/search-results'
+import {SearchResult} from '../search-results'
 
 export type FormValues = {
 	flyFrom: string

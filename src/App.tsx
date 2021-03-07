@@ -1,74 +1,32 @@
 import Navigation from './components/navigation'
-import SearchForm from './components/search-form'
 import styled from 'styled-components'
-import SearchResults from './components/search-results'
-import {useSearchResults} from './hooks/use-search-results'
 import If from './components/if'
-import {ReactComponent as Spinner} from './components/icons/spinner.svg'
-import PopularPlaces from './components/popular-places'
+import Login from './components/login/login'
+import {useState} from 'react'
+import {LoginState} from './components/types'
+import {useUser} from './context/login-context'
+import Homepage from './homepage'
+import {Container} from './components/container'
 
-export const Container = styled.div`
-	width: 100%;
-	padding-right: 16px;
-	padding-left: 16px;
-	margin-right: auto;
-	margin-left: auto;
-
-	@media ${({theme}) => theme.sm} {
-		max-width: 542px;
-	}
-
-	@media ${({theme}) => theme.md} {
-		max-width: 752px;
-	}
-
-	@media ${({theme}) => theme.lg} {
-		max-width: 972px;
-	}
-
-	@media ${({theme}) => theme.xl} {
-		max-width: 1172px;
-	}
-`
-
-const SearchBox = styled.div`
-	min-width: 320px;
-	backdrop-filter: blur(20px);
-	background: rgba(16 18 27 / 40%);
-	border-radius: 14px;
-	padding: 24px;
-	position: relative;
-	z-index: 10;
-`
-const Title = styled.h1`
-	font-size: 48px;
-	padding-top: 48px;
-	padding-bottom: 48px;
-	text-align: center;
+const Note = styled.p`
+	position: fixed;
+	bottom: 24px;
 `
 
 function App() {
-	const [searchResults, status, getSearchResults] = useSearchResults()
+	const [login, setLogin] = useState<LoginState>()
+	const user = useUser()
 	return (
-		<div className=''>
-			<Navigation />
-			<Container>
-				<SearchBox>
-					<SearchForm getSearchResults={getSearchResults} />
-				</SearchBox>
-				<If condition={status === 'loading'}>
-					<Spinner />
-				</If>
-				<If condition={status === 'error'}>Ups, something went wrong.</If>
-				<If condition={status === 'success'}>
-					<SearchResults searchResults={searchResults} />
-				</If>
-				<If condition={!status}>
-					<Title>Start your travel today</Title>
-					<PopularPlaces getSearchResults={getSearchResults} />
-				</If>
-			</Container>
-		</div>
+		<Container>
+			<Navigation setLogin={setLogin} />
+			{login === 'login' ? <Login setLogin={setLogin} /> : <Homepage />}
+			<If condition={!user?.name}>
+				<Note>
+					Note: Your search results are limited to 5 items. Please, signup to
+					unlock full search.
+				</Note>
+			</If>
+		</Container>
 	)
 }
 

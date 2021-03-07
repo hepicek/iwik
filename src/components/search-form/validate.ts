@@ -1,5 +1,5 @@
 import {FormikErrors} from 'formik'
-import {FormValues} from '../../hooks/use-search-results'
+import {FormValues} from './use-search-results'
 
 const required = 'Required'
 
