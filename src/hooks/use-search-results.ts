@@ -3,7 +3,7 @@ import {getSearchUrl} from '../utils/set-search-params'
 import {useCallback, useState} from 'react'
 import {SearchResult} from '../components/search-results'
 
-type Values = {
+export type FormValues = {
 	flyFrom: string
 	to: string
 	dateFrom: string
@@ -11,7 +11,7 @@ type Values = {
 	from: string
 }
 
-export type GetSearchResults = (values: Values) => Promise<void>
+export type GetSearchResults = (values: FormValues) => Promise<void>
 
 type Status = 'loading' | 'success' | 'error' | undefined
 
@@ -43,9 +43,14 @@ export function useSearchResults(limit = 5): UseSearchResults {
 			seStatus('loading')
 			try {
 				const res = await fetch(url.toString())
-				const {data} = await res.json()
+				const body = await res.json()
+
+				if (!res.ok) {
+					throw new Error('Failed to fetch')
+				}
+
 				seStatus('success')
-				setSearchResults(data)
+				setSearchResults(body.data)
 			} catch (err) {
 				console.error(err)
 				seStatus('error')
