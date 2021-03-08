@@ -1,5 +1,5 @@
 import Navigation from './components/navigation'
-import Login from './components/login/login'
+import Login from './components/login'
 import {useState} from 'react'
 import {LoginState} from './components/types'
 import Homepage from './homepage'

@@ -1,8 +1,8 @@
-import {Form, Formik} from 'formik'
-import {validate} from '../search-form/validate'
+import {Form, Formik, useField} from 'formik'
+import {validate} from './validate'
 import {Button} from '../buttons'
 import {Input} from '../input'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {useSetUser} from '../../context/login-context'
 import {SetLogin} from '../types'
 
@@ -15,10 +15,49 @@ const LoginForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
+`
+
+const InputWrapper = styled.div`
+	width: 100%;
+	margin-bottom: 24px;
 	input {
-		margin-bottom: 24px;
+		width: 100%;
+		margin-bottom: 4px;
+
+		${({error}: {error?: boolean}) =>
+			error &&
+			css`
+				border: 1px solid ${({theme}) => theme.red};
+			`}
+	}
+	p {
+		margin: 0;
+		color: ${({theme}) => theme.red};
+		text-align: right;
+		font-size: 12px;
 	}
 `
+
+type TextInputProps = {
+	type: string
+	name: string
+	placeholder: string
+}
+
+const TextInput = (props: TextInputProps) => {
+	const [field, meta] = useField(props)
+	return (
+		<InputWrapper error={meta.touched && meta.error ? true : undefined}>
+			<Input {...field} {...props} />
+			{meta.touched && meta.error ? <p>{meta.error}</p> : null}
+		</InputWrapper>
+	)
+}
+
+export type LoginValues = {
+	name: string
+	password: string
+}
 
 type Props = {
 	setLogin: SetLogin
@@ -28,7 +67,7 @@ export default function Login({setLogin}: Props) {
 	return (
 		<Formik
 			initialValues={{name: '', password: ''}}
-			// validate={validate}
+			validate={validate}
 			onSubmit={(values, actions) => {
 				if (setValue) {
 					setValue(JSON.stringify(values))
@@ -37,10 +76,10 @@ export default function Login({setLogin}: Props) {
 				actions.setSubmitting(false)
 			}}
 		>
-			{({isSubmitting, touched, errors}) => (
+			{({isSubmitting}) => (
 				<LoginForm>
-					<Input type='text' name='name' placeholder='Your Name' />
-					<Input type='password' name='password' placeholder='Password' />
+					<TextInput type='text' name='name' placeholder='Your Name' />
+					<TextInput type='password' name='password' placeholder='Password' />
 					<Button type='submit' disabled={isSubmitting}>
 						Submit
 					</Button>
