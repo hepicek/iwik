@@ -5,8 +5,11 @@ import {Button} from '../buttons'
 
 const Grid = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
 	gap: 32px 32px;
+	margin-bottom: 32px;
+	@media ${({theme}) => theme.xl} {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
 `
 
 const PlaceCard = styled.div`
@@ -34,10 +37,16 @@ const Name = styled.p`
 `
 
 const Title = styled.h2`
-	font-size: 32px;
-	padding-top: 48px;
-	padding-bottom: 48px;
+	font-size: 24px;
+	padding-top: 24px;
+	padding-bottom: 24px;
 	text-align: center;
+	@media ${({theme}) => theme.xl} {
+		font-size: 24px;
+		padding-top: 24px;
+		padding-bottom: 24px;
+		text-align: center;
+	}
 `
 
 const popularPlaces = [

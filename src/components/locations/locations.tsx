@@ -4,13 +4,16 @@ import {Location, City} from './types'
 
 const LocationFilter = styled.ul`
 	position: absolute;
+	top: 110%;
 	left: 0;
 	right: 0;
 	list-style: none;
 	padding: 12px;
+	margin: 0;
 	color: ${({theme}) => theme.white};
 	background-color: ${({theme}) => theme.dark};
 	border-radius: 4px;
+	z-index: 10;
 `
 
 const FilterItem = styled.li`

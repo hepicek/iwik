@@ -6,13 +6,20 @@ import Tag from '../locations/tag'
 import Locations from '../locations/locations'
 
 const Wrapper = styled.div`
+	display: flex;
+	align-items: center;
 	position: relative;
 	min-width: 260px;
+	min-height: 42px;
 	background-color: ${({theme}) => theme.dark};
 	padding: 0 12px;
 	box-shadow: 0 0 0 2px rgb(134 140 160 / 2%);
 	color: ${({theme}) => theme.white};
 	border-radius: 4px;
+	margin-bottom: 16px;
+	@media ${({theme}) => theme.xl} {
+		margin-bottom: 0;
+	}
 	${({error}: {error?: boolean}) =>
 		error &&
 		css`

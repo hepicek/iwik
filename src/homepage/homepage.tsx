@@ -17,10 +17,16 @@ const SearchBox = styled.div`
 	z-index: 10;
 `
 const Title = styled.h1`
-	font-size: 48px;
-	padding-top: 48px;
-	padding-bottom: 48px;
+	font-size: 32px;
+	padding-top: 24px;
+	padding-bottom: 24px;
 	text-align: center;
+
+	@media ${({theme}) => theme.xl} {
+		font-size: 48px;
+		padding-top: 48px;
+		padding-bottom: 48px;
+	}
 `
 
 export default function Homepage() {

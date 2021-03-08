@@ -13,7 +13,13 @@ const CardWrapper = styled.li`
 	margin-bottom: 24px;
 	color: ${({theme}) => theme.white};
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
+
+  @media ${({theme}) => theme.xl} {
+    flex-direction: row;
+  }
+	
 	&:last-child {
 		-webkit-mask-image: -webkit-gradient(
 			linear,

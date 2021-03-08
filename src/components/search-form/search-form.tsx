@@ -8,7 +8,21 @@ import {validate} from './validate'
 
 const FormLayout = styled(Form)`
 	display: flex;
+	flex-direction: column;
 	justify-content: space-around;
+	@media ${({theme}) => theme.xl} {
+		flex-direction: row;
+	}
+	input[type='date'],
+	select {
+		margin-bottom: 16px;
+		@media ${({theme}) => theme.xl} {
+			margin-bottom: 0;
+		}
+	}
+	select {
+		height: 42px;
+	}
 `
 
 const initialValues = {
