@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {SearchResult} from './types'
 import {ReactComponent as Airplane} from './airplane.svg'
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.li`
 	backdrop-filter: blur(20px);
 	background: rgba(16 18 27 / 40%);
 	border-radius: 14px;
@@ -14,6 +14,25 @@ const CardWrapper = styled.div`
 	color: ${({theme}) => theme.white};
 	display: flex;
 	justify-content: space-between;
+	&:last-child {
+		-webkit-mask-image: -webkit-gradient(
+			linear,
+			left top,
+			left bottom,
+			from(rgba(0, 0, 0, 1)),
+			to(rgba(0, 0, 0, 0))
+		);
+		opacity: 0.2;
+		&:after {
+          content: '';
+          z-index: 10;
+          display: flex;
+          position: absolute;
+          height: 100%;
+          top: 0;
+          left: 0;
+          right: 0;
+	}
 `
 
 const PriceBox = styled.div`

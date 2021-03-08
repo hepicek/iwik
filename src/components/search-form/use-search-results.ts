@@ -22,7 +22,7 @@ type UseSearchResults = [
 	getSearchResults: GetSearchResults
 ]
 
-export function useSearchResults(limit = 5): UseSearchResults {
+export function useSearchResults(limit = 6): UseSearchResults {
 	const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 	const [status, seStatus] = useState<Status>()
 

@@ -20,7 +20,7 @@ const RemoveButton = styled.button`
 	border: none;
 	outline: none;
 	svg {
-		width: 24px;
+		width: 20px;
 	}
 `
 type Props = {

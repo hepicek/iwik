@@ -25,7 +25,7 @@ const Title = styled.h1`
 
 export default function Homepage() {
 	const user = useUser()
-	const limit = user?.name ? 50 : 5
+	const limit = user?.name ? 50 : 6
 	const [searchResults, status, getSearchResults] = useSearchResults(limit)
 
 	return (
@@ -36,7 +36,9 @@ export default function Homepage() {
 			<If condition={status === 'loading'}>
 				<Spinner />
 			</If>
-			<If condition={status === 'error'}>Ups, something went wrong.</If>
+			<If condition={status === 'error'}>
+				<Title>Ups, something went wrong.</Title>
+			</If>
 			<If condition={status === 'success'}>
 				<SearchResults searchResults={searchResults} />
 			</If>
