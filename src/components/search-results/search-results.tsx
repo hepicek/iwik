@@ -5,6 +5,7 @@ import NoResults from './no-results'
 import {ReactComponent as LockIcon} from './lock-icon.svg'
 const ResultsWrapper = styled.div`
 	min-width: 320px;
+	max-width: 700px;
 	margin: 24px auto;
 `
 

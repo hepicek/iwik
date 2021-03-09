@@ -20,10 +20,7 @@ const RemoveButton = styled.button`
 	border: none;
 	outline: none;
 	svg {
-		width: 12px;
-		@media ${({theme}) => theme.xl} {
-			width: 20px;
-		}
+		width: 15px;
 	}
 `
 type Props = {
